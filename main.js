@@ -183,16 +183,18 @@
         const rect = this.target.getBoundingClientRect();
         const y = touch.clientY - rect.top;
         if (y < rect.height * 0.5) return;
-        this.touchStartX = touch.clientX;
-        this.paddleStartX = this.targetX ?? CONFIG.logicalWidth / 2;
+        this.touchStartX = (touch.clientX - rect.left) * game.scale;
+        this.paddleStartX = game.paddle.x;
         e.preventDefault();
       }, { passive: false });
 
       this.target.addEventListener('touchmove', (e) => {
         const touch = e.touches[0];
         if (!touch) return;
-        const delta = touch.clientX - this.touchStartX;
-        this.targetX = this.paddleStartX + delta * game.scale;
+        const rect = this.target.getBoundingClientRect();
+        const currentX = (touch.clientX - rect.left) * game.scale;
+        const delta = currentX - this.touchStartX;
+        this.targetX = this.paddleStartX + delta;
         e.preventDefault();
       }, { passive: false });
 
@@ -358,7 +360,8 @@
       this.scale = CONFIG.logicalWidth / width;
 
       const landscape = rect.width > rect.height;
-      rotateHint.classList.toggle('hidden', !landscape);
+      const desktopLike = window.matchMedia('(hover: hover)').matches;
+      rotateHint.classList.toggle('hidden', desktopLike || !landscape);
     }
   }
 
