@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Arkanoid Agent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-wrapper">
+    <canvas id="game" width="800" height="1200" aria-label="Arkanoid game"></canvas>
+    <div id="hud">
+      <div id="score">Score: 0</div>
+    </div>
+    <div id="overlay" class="hidden" role="dialog" aria-live="polite">
+      <div class="panel">
+        <h1>Game Over</h1>
+        <div id="final-score">Score: 0</div>
+        <button id="play-again">Play Again</button>
+      </div>
+    </div>
+    <div id="rotate-hint" class="hidden">Rotate device for portrait play</div>
+    <div id="hint">Swipe/drag in the lower area to move</div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
